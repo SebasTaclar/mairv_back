@@ -2,7 +2,7 @@
 
 ## Overview
 
-This implementation provides a complete rent management system for the ED90MAS1 application using Azure Functions, following the existing project architecture patterns.
+This implementation provides a complete rent management system for the mairv application using Azure Functions, following the existing project architecture patterns.
 
 ## 🏗️ Architecture Components Created
 

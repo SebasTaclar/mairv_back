@@ -101,3 +101,23 @@ model Product {
   @@index([isShowcase], map: "idx_products_showcase")
   @@map("products")
 }
+
+// Modelo para manejar eventos/calendario
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  startDate   DateTime @map("start_date")
+  endDate     DateTime? @map("end_date")
+  location    String?
+  category    String?
+  status      String   @default("scheduled")
+  maxAttendees Int?
+  organizers  String?   // JSON array of strings
+  attachments String?   // JSON array of objects {id,title,url}
+  tags        String?   // JSON array of strings
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("events")
+}

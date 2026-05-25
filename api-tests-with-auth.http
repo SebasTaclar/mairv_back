@@ -402,6 +402,88 @@ Authorization: Bearer {{token}}
   "price": 7.99
 }
 
+###
+# EVENTS ENDPOINTS (CRUD) - Public GET, protected POST/PUT/DELETE
+###
+
+### Nota:
+- Usa `POST {{baseUrl}}/api/funcLogin` arriba para obtener un `token` y pega su valor en la variable `@token` al inicio del archivo.
+- Campos requeridos para crear evento: `title`, `startDate` (ISO 8601). Otros campos son opcionales.
+
+### Ejemplo de evento (JSON) - copia/pega en el body de POST/PUT
+{
+  "title": "Torneo de Futbol",
+  "description": "Evento principal del mes",
+  "startDate": "2026-06-10T18:00:00.000Z",
+  "endDate": "2026-06-10T20:00:00.000Z",
+  "location": "Cancha Central",
+  "category": "Torneo",
+  "status": "scheduled",
+  "maxAttendees": 100,
+  "organizers": ["Juan Pérez", "María Gómez"],
+  "attachments": [
+    {
+      "id": "att-1",
+      "title": "Afiche",
+      "url": "https://example.com/afiche.jpg"
+    },
+    {
+      "id": "att-2",
+      "title": "Reglamento PDF",
+      "url": "https://example.com/reglamento.pdf"
+    }
+  ],
+  "tags": []
+}
+
+### 50. Obtener lista de eventos (Público)
+GET {{baseUrl}}/api/v1/events
+
+### 51. Obtener evento por ID (Público)
+GET {{baseUrl}}/api/v1/events/1
+
+### 52. Crear evento - Requiere `Authorization: Bearer {{token}}`
+POST {{baseUrl}}/api/v1/events
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Torneo de Futbol",
+  "description": "Evento principal del mes",
+  "startDate": "2026-06-10T18:00:00.000Z",
+  "endDate": "2026-06-10T20:00:00.000Z",
+  "location": "Cancha Central",
+  "category": "Torneo",
+  "status": "scheduled",
+  "maxAttendees": 100,
+  "organizers": ["Juan Pérez", "María Gómez"],
+  "attachments": [
+    { "id": "att-1", "title": "Afiche", "url": "https://example.com/afiche.jpg" }
+  ],
+  "tags": ["futbol","torneo"]
+}
+
+### 53. Actualizar evento - Requiere token
+PUT {{baseUrl}}/api/v1/events/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Torneo de Futbol - Actualizado",
+  "location": "Cancha Alterna",
+  "maxAttendees": 120
+}
+
+### 54. Eliminar evento - Requiere token
+DELETE {{baseUrl}}/api/v1/events/1
+Authorization: Bearer {{token}}
+
+### Casos de prueba sugeridos:
+- Crear evento sin `title` o `startDate` -> debería devolver validación (400).
+- Llamar POST/PUT/DELETE sin `Authorization` o con token inválido -> 401.
+- GET lista con query `?category=Torneo` o `?status=scheduled`.
+
+
 ### 50. Actualizar producto - Agregar a showcase
 PUT {{baseUrl}}/api/v1/products/1
 Content-Type: application/json

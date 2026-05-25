@@ -104,7 +104,7 @@ npm run ts-node scripts/migrateRentData.ts
 ### SQL Directo
 
 ```bash
-psql -d ed90mas1_db -f scripts/migrate_existing_rents.sql
+psql -d mairv_db -f scripts/migrate_existing_rents.sql
 ```
 
 ## Beneficios
